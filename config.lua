@@ -85,11 +85,17 @@ lvim.builtin.treesitter.ensure_installed = {
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup { { name = "black" }, }
 lvim.format_on_save.enabled = true
-lvim.format_on_save.pattern = { "*.py" }
+lvim.format_on_save.pattern = { "*.py", "*.lua" }
 
 -- setup linting
 local linters = require "lvim.lsp.null-ls.linters"
-linters.setup { { command = "flake8", filetypes = { "python" } } }
+linters.setup {
+  { command = "flake8", filetypes = { "python" } },
+  {
+    name = "shellcheck",
+    args = { "--serveriry", "warning" }
+  }
+}
 
 -- setup debug adapter
 lvim.builtin.dap.active = true
@@ -140,5 +146,6 @@ require('swenv').setup({
 -- binding for switching
 lvim.builtin.which_key.mappings["C"] = {
   name = "Python",
-  c = { "<cmd>lua require('swenv.api').pick_venv()<cr>", "Choose Env" },
+  p = { "<cmd>lua require('swenv.api').pick_venv()<cr>", "Choose Env" },
+  c = { "<cmd>lua require('swenv.api').get_current_venv()<cr>", "Show current Env" },
 }
