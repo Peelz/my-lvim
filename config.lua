@@ -49,13 +49,15 @@ lvim.plugins = {
     ft = { "fugitive" }
   },
   { "sindrets/diffview.nvim" },
+  { 'towolf/vim-helm',       ft = 'helm' },
+  { "scalameta/nvim-metals" }
 }
 
 -- lsp install
 lvim.lsp.installer.setup.ensure_installed = { "pyright", "jsonls", "yamlls", "bashls" }
 
 
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright" })
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright", "helm_ls" })
 local pyright_opts = {
   single_file_support = true,
   settings = {
@@ -140,12 +142,27 @@ require('swenv').setup({
   end,
   -- Path passed to `get_venvs`.
   venvs_path = vim.fn.expand('~/venvs'),
+  -- venvs_path = vim.fn.getcwd(),
   -- Something to do after setting an environment, for example call vim.cmd.LspRestart
-  post_set_venv = nil,
+  post_set_venv = function(venv)
+    vim.cmd('LspRestart')
+  end,
 })
+
 -- binding for switching
 lvim.builtin.which_key.mappings["C"] = {
   name = "Python",
   p = { "<cmd>lua require('swenv.api').pick_venv()<cr>", "Choose Env" },
   c = { "<cmd>lua require('swenv.api').get_current_venv()<cr>", "Show current Env" },
 }
+
+
+-- lvim.lsp.helm_ls.setup {
+--   settings = {
+--     ['helm-ls'] = {
+--       yamlls = {
+--         path = "yaml-language-server",
+--       }
+--     }
+--   }
+-- }
