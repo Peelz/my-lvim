@@ -7,7 +7,9 @@ require('custom.plugins')
 reload('custom.options')
 
 -- lsp install
-lvim.lsp.installer.setup.ensure_installed = { "pyright", "jsonls", "yamlls", "bashls" }
+lvim.lsp.installer.setup.ensure_installed = {
+  "pyright", "jsonls", "yamlls", "bashls", "rust",
+}
 
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright", "helm_ls" })
 local pyright_opts = {
@@ -37,9 +39,12 @@ lvim.builtin.treesitter.ensure_installed = {
 
 -- setup formatting
 local formatters = require "lvim.lsp.null-ls.formatters"
-formatters.setup { { name = "black" }, }
+formatters.setup {
+  { name = "black" },
+  { command = "rustfmt" },
+}
 lvim.format_on_save.enabled = true
-lvim.format_on_save.pattern = { "*.py", "*.lua" }
+lvim.format_on_save.pattern = { "*.py", "*.lua", "*.rs" }
 
 -- setup linting
 local linters = require "lvim.lsp.null-ls.linters"
