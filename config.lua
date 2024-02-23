@@ -6,6 +6,8 @@
 require('base.plugins')
 reload('base.options')
 
+require('custom.custom')
+
 -- lsp install
 lvim.lsp.installer.setup.ensure_installed = {
   "pyright", "jsonls", "yamlls", "bashls", "rust",
