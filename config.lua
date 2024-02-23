@@ -3,8 +3,8 @@
 -- Forum: https://www.reddit.com/r/lunarvim/
 -- Discord: https://discord.com/invite/Xb9B4Ny
 
-require('custom.plugins')
-reload('custom.options')
+require('base.plugins')
+reload('base.options')
 
 -- lsp install
 lvim.lsp.installer.setup.ensure_installed = {
