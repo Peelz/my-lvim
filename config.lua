@@ -113,13 +113,7 @@ lvim.builtin.which_key.mappings["C"] = {
   c = { "<cmd>lua require('swenv.api').get_current_venv()<cr>", "Show current Env" },
 }
 
-
--- lvim.lsp.helm_ls.setup {
---   settings = {
---     ['helm-ls'] = {
---       yamlls = {
---         path = "yaml-language-server",
---       }
---     }
---   }
--- }
+-- always open nvim tree
+lvim.builtin.nvimtree.on_config_done = function()
+  require("nvim-tree.api").tree.toggle({ focus = false })
+end
