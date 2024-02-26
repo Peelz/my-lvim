@@ -36,7 +36,7 @@ local pyright_opts = {
 require("lvim.lsp.manager").setup("pyright", pyright_opts)
 -- automatically install python syntax highlighting
 lvim.builtin.treesitter.ensure_installed = {
-  "python",
+  "python", "rust"
 }
 
 -- setup formatting
