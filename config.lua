@@ -126,3 +126,7 @@ lvim.builtin.which_key.mappings["C"] = {
 lvim.builtin.nvimtree.on_config_done = function()
   require("nvim-tree.api").tree.toggle({ focus = false })
 end
+
+lvim.builtin.telescope.on_config_done = function(telescope) 
+  pcall(telescope.load_extension, "file_history")
+end

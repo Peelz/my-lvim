@@ -13,8 +13,7 @@ local base = {
   "nvim-neotest/neotest-python",
   {
     "f-person/git-blame.nvim",
-    event = "BufRead",
-    config = function()
+    event = "BufRead", config = function()
       vim.cmd "highlight default link gitblame SpecialComment"
       vim.g.gitblame_enabled = 1 -- Change the value to 1 here
     end,
@@ -49,6 +48,20 @@ local base = {
   --   config = function()
   --   end,
   -- },
+  { 
+    'dawsers/telescope-file-history.nvim',
+    dependencies = {
+      'nvim-telescope/telescope.nvim'
+    },
+    config = function()
+      require('file_history').setup {
+        -- This is the location where it will create your file history repository
+        backup_dir = "~/.file-history-git",
+        -- command line to execute git
+        git_cmd = "git"
+      }
+    end
+  },
 }
 
 lvim.plugins = base
