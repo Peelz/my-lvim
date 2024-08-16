@@ -10,10 +10,10 @@ require('custom.custom')
 
 -- lsp install
 lvim.lsp.installer.setup.ensure_installed = {
-  "pyright", "jsonls", "yamlls", "bashls", "rust",
+  "pyright", "jsonls", "yamlls", "bashls", "rust_analyzer",
 }
 
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright", "helm_ls" })
+-- lvim.lsp.automatic_configuration.skipped_servers, { "pyright", "helm_ls" }
 local pyright_opts = {
   single_file_support = true,
   settings = {
@@ -65,32 +65,6 @@ pcall(function()
   require("dap-python").setup(mason_path .. "packages/debugpy/venv/bin/python")
 end)
 
--- setup testing
-require("neotest").setup({
-  adapters = {
-    require("neotest-python")({
-      -- Extra arguments for nvim-dap configuration
-      -- See https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for values
-      dap = {
-        justMyCode = false,
-        console = "integratedTerminal",
-      },
-      args = { "--log-level", "DEBUG", "--quiet" },
-      runner = "pytest",
-    })
-  }
-})
-
-lvim.builtin.which_key.mappings["dm"] = { "<cmd>lua require('neotest').run.run()<cr>",
-  "Test Method" }
-lvim.builtin.which_key.mappings["dM"] = { "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>",
-  "Test Method DAP" }
-lvim.builtin.which_key.mappings["df"] = {
-  "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", "Test Class" }
-lvim.builtin.which_key.mappings["dF"] = {
-  "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>", "Test Class DAP" }
-lvim.builtin.which_key.mappings["dS"] = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Test Summary" }
-
 -- pyenv
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "python" },
@@ -127,6 +101,6 @@ lvim.builtin.nvimtree.on_config_done = function()
   require("nvim-tree.api").tree.toggle({ focus = false })
 end
 
-lvim.builtin.telescope.on_config_done = function(telescope) 
+lvim.builtin.telescope.on_config_done = function(telescope)
   pcall(telescope.load_extension, "file_history")
 end

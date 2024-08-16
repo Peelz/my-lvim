@@ -9,11 +9,12 @@ local base = {
   "AckslD/swenv.nvim",
   "stevearc/dressing.nvim",
   "mfussenegger/nvim-dap-python",
-  "nvim-neotest/neotest",
-  "nvim-neotest/neotest-python",
+  -- "nvim-neotest/neotest",
+  -- "nvim-neotest/neotest-python",
   {
     "f-person/git-blame.nvim",
-    event = "BufRead", config = function()
+    event = "BufRead",
+    config = function()
       vim.cmd "highlight default link gitblame SpecialComment"
       vim.g.gitblame_enabled = 1 -- Change the value to 1 here
     end,
@@ -40,7 +41,6 @@ local base = {
   },
   { "sindrets/diffview.nvim" },
   { 'towolf/vim-helm',       ft = 'helm' },
-  { "scalameta/nvim-metals" },
   -- {
   --   'mrcjkb/rustaceanvim',
   --   version = '^4',
@@ -48,7 +48,7 @@ local base = {
   --   config = function()
   --   end,
   -- },
-  { 
+  {
     'dawsers/telescope-file-history.nvim',
     dependencies = {
       'nvim-telescope/telescope.nvim'
@@ -61,6 +61,15 @@ local base = {
         git_cmd = "git"
       }
     end
+  },
+  {
+    "tpope/vim-surround",
+  },
+  {
+    "scalameta/nvim-metals",
+    config = function()
+      require("user.metals").config()
+    end,
   },
 }
 
